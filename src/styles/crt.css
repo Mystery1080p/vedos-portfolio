@@ -1,0 +1,166 @@
+.vedos-crt {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--desktop-wallpaper);
+}
+
+.vedos-crt::before {
+  position: absolute;
+  z-index: 50;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.32;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.34) 0,
+      rgba(0, 0, 0, 0.34) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.025),
+      transparent 35%,
+      rgba(0, 255, 255, 0.025)
+    );
+  mix-blend-mode: screen;
+}
+
+.vedos-crt::after {
+  position: absolute;
+  z-index: 51;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.12;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 48%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+  box-shadow: inset 0 0 8rem rgba(0, 0, 0, 0.75);
+}
+
+.vedos-crt-content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+.vedos-flicker {
+  animation: vedos-flicker 7s infinite steps(1, end);
+}
+
+.vedos-glow-text {
+  color: var(--vedos-cyan-soft);
+  text-shadow:
+    0 0 4px rgba(114, 255, 229, 0.84),
+    0 0 12px rgba(54, 255, 139, 0.42);
+}
+
+.vedos-glow-green {
+  color: var(--vedos-green);
+  text-shadow:
+    0 0 5px rgba(54, 255, 139, 0.95),
+    0 0 14px rgba(54, 255, 139, 0.42);
+}
+
+.vedos-screen-boot {
+  animation: vedos-screen-boot 600ms ease-out both;
+  transform-origin: center;
+}
+
+.vedos-cursor::after {
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  margin-left: 0.2em;
+  vertical-align: -0.15em;
+  background: currentColor;
+  content: "";
+  animation: vedos-cursor-blink 900ms steps(1, end) infinite;
+}
+
+@keyframes vedos-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  7% {
+    opacity: 0.97;
+  }
+
+  8% {
+    opacity: 0.9;
+  }
+
+  9% {
+    opacity: 1;
+  }
+
+  47% {
+    opacity: 0.98;
+  }
+
+  48% {
+    opacity: 0.92;
+  }
+
+  49% {
+    opacity: 1;
+  }
+
+  76% {
+    opacity: 0.95;
+  }
+
+  77% {
+    opacity: 1;
+  }
+}
+
+@keyframes vedos-cursor-blink {
+  0%,
+  47% {
+    opacity: 1;
+  }
+
+  48%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes vedos-screen-boot {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.01) scaleX(0.2);
+  }
+
+  55% {
+    opacity: 1;
+    transform: scaleY(0.02) scaleX(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vedos-flicker,
+  .vedos-screen-boot,
+  .vedos-cursor::after {
+    animation: none !important;
+  }
+
+  .vedos-crt::before {
+    opacity: 0.18;
+  }
+}

@@ -1,0 +1,211 @@
+.vedos-os {
+  min-height: 100vh;
+  color: var(--vedos-cyan-soft);
+  background: transparent;
+}
+
+.vedos-grid {
+  background-image:
+    linear-gradient(rgba(114, 255, 229, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(114, 255, 229, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.vedos-glass {
+  border: 1px solid var(--vedos-line);
+  background: var(--vedos-panel);
+  box-shadow:
+    inset 0 1px 0 rgba(224, 255, 250, 0.15),
+    0 0 20px rgba(18, 255, 181, 0.08),
+    0 0 2px rgba(114, 255, 229, 0.8);
+  backdrop-filter: blur(14px) saturate(135%);
+  -webkit-backdrop-filter: blur(14px) saturate(135%);
+}
+
+.vedos-glass-deep {
+  border: 1px solid var(--vedos-line-dim);
+  background: var(--vedos-panel-deep);
+  box-shadow:
+    inset 0 1px 0 rgba(224, 255, 250, 0.09),
+    0 0 24px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.vedos-window {
+  overflow: hidden;
+  border: 1px solid var(--vedos-line);
+  background: var(--vedos-panel);
+  box-shadow:
+    inset 0 1px rgba(218, 255, 245, 0.18),
+    0 0 0 1px rgba(0, 0, 0, 0.55),
+    0 1rem 2.5rem rgba(0, 0, 0, 0.45),
+    0 0 2rem rgba(0, 255, 187, 0.08);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+}
+
+.vedos-window-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.5rem 0.35rem 0.7rem;
+  border-bottom: 1px solid var(--vedos-line);
+  color: var(--vedos-black);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.15) 0,
+      rgba(255, 255, 255, 0.15) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    linear-gradient(90deg, var(--vedos-cyan), var(--vedos-green));
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.vedos-window-body {
+  padding: 1rem;
+}
+
+.vedos-button {
+  min-height: 2rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--vedos-line);
+  color: var(--vedos-cyan-soft);
+  background: rgba(2, 18, 15, 0.8);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.12),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.65),
+    0 0 10px rgba(0, 255, 185, 0.08);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.vedos-button:hover {
+  color: var(--vedos-black);
+  background: var(--vedos-cyan);
+  box-shadow:
+    0 0 12px rgba(114, 255, 229, 0.55),
+    0 0 24px rgba(54, 255, 139, 0.2);
+}
+
+.vedos-button:active {
+  transform: translateY(1px);
+  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.55);
+}
+
+.vedos-button-danger:hover {
+  color: var(--vedos-black);
+  border-color: var(--vedos-danger);
+  background: var(--vedos-danger);
+}
+
+.vedos-icon-button {
+  display: inline-grid;
+  width: 1.45rem;
+  height: 1.45rem;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(1, 22, 18, 0.72);
+  color: var(--vedos-black);
+  background: rgba(231, 255, 250, 0.48);
+  font-size: 0.78rem;
+  line-height: 1;
+  transition: 160ms ease;
+}
+
+.vedos-icon-button:hover {
+  color: var(--vedos-cyan-soft);
+  border-color: var(--vedos-black);
+  background: var(--vedos-black);
+}
+
+.vedos-input {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--vedos-line-dim);
+  color: var(--vedos-cyan-soft);
+  outline: none;
+  background: rgba(0, 0, 0, 0.52);
+  box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.45);
+}
+
+.vedos-input:focus {
+  border-color: var(--vedos-cyan);
+  box-shadow:
+    inset 0 0 1rem rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(114, 255, 229, 0.22),
+    0 0 1rem rgba(114, 255, 229, 0.14);
+}
+
+.vedos-label {
+  color: var(--vedos-green);
+  font-size: 0.67rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.vedos-status-dot {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: var(--vedos-green);
+  box-shadow: 0 0 9px var(--vedos-green);
+}
+
+.vedos-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--vedos-line),
+    transparent
+  );
+}
+
+.vedos-noise {
+  position: relative;
+}
+
+.vedos-noise::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  content: "";
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+
+.vedos-noise > * {
+  position: relative;
+  z-index: 1;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vedos-glass,
+  .vedos-glass-deep,
+  .vedos-window {
+    background: rgba(2, 18, 15, 0.94);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vedos-button {
+    transition: none;
+  }
+}
