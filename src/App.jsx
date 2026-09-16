@@ -1,25 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useApplySystemPreferences from "./hooks/useApplySystemPreferences";
 import BootScreen from "./screens/BootScreen";
-import LoginScreen from "./screens/LoginScreen";
 import DesktopScreen from "./screens/DesktopScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 function App() {
   const [screen, setScreen] = useState("boot");
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setScreen("login");
-    }, 1000);
-
-    return () => window.clearTimeout(timer);
-  }, []);
+  useApplySystemPreferences();
 
   if (screen === "boot") {
-    return <BootScreen />;
+    return <BootScreen onComplete={() => setScreen("login")} />;
   }
 
   if (screen === "login") {
-    return <LoginScreen onLogin={() => setScreen("desktop")} />;
+    return <LoginScreen onLoginComplete={() => setScreen("desktop")} />;
   }
 
   return <DesktopScreen />;

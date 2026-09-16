@@ -164,3 +164,9 @@
     opacity: 0.18;
   }
 }
+
+html[data-vedos-motion="reduce"] .vedos-flicker,
+html[data-vedos-motion="reduce"] .vedos-screen-boot,
+html[data-vedos-motion="reduce"] .vedos-cursor::after {
+  animation: none !important;
+}
