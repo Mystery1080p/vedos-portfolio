@@ -209,3 +209,30 @@
     transition: none;
   }
 }
+
+.vedos-taskbar {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.vedos-window-layer {
+  touch-action: none;
+}
+
+@media (max-width: 640px) {
+  .vedos-window-layer {
+    left: 8px !important;
+    top: 8px !important;
+    width: calc(100vw - 16px) !important;
+    height: calc(100vh - 64px) !important;
+  }
+
+  .vedos-window-titlebar {
+    cursor: default;
+  }
+}
+
+@media (min-width: 641px) {
+  .vedos-window-titlebar {
+    cursor: move;
+  }
+}

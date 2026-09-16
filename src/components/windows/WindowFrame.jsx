@@ -8,17 +8,25 @@ function WindowFrame({
   onMinimize,
   onMaximize,
   onClose,
+  onTitleBarPointerDown,
+  isMaximized = false,
 }) {
   return (
     <section className={`vedos-window ${className}`}>
-      <header className="vedos-window-titlebar">
-        <div className="flex items-center gap-2">
-          <span className="vedos-status-dot" />
-          <span>{title}</span>
+      <header
+        className="vedos-window-titlebar touch-none select-none"
+        onPointerDown={onTitleBarPointerDown}
+      >
+        <div className="flex min-w-0 items-center gap-2">
+          <span className="vedos-status-dot shrink-0" />
+          <span className="truncate">{title}</span>
         </div>
 
         {showControls && (
-          <div className="flex items-center gap-1">
+          <div
+            className="flex shrink-0 items-center gap-1"
+            onPointerDown={(event) => event.stopPropagation()}
+          >
             <button
               aria-label={`Minimize ${title}`}
               className="vedos-icon-button"
@@ -29,7 +37,7 @@ function WindowFrame({
             </button>
 
             <button
-              aria-label={`Maximize ${title}`}
+              aria-label={`${isMaximized ? "Restore" : "Maximize"} ${title}`}
               className="vedos-icon-button"
               onClick={onMaximize}
               type="button"
