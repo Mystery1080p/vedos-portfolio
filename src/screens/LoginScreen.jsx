@@ -26,6 +26,7 @@ function LoginScreen({ onLoginComplete }) {
 
       if (nextProgress >= 100) {
         window.clearInterval(intervalId);
+
         window.setTimeout(() => {
           onLoginComplete();
         }, 250);
@@ -42,94 +43,79 @@ function LoginScreen({ onLoginComplete }) {
 
   return (
     <CrtShell>
-      <main className="vedos-grid flex min-h-screen items-center justify-center p-4">
+      <main className="flex min-h-screen items-center justify-center p-4">
         <WindowFrame
           className="w-full max-w-md"
           showControls={false}
-          title={isAuthenticating ? "VedOS Authentication" : "VedOS Secure Login"}
+          title={isAuthenticating ? "OxygenOS Login" : "Welcome to OxygenOS"}
         >
           {!isAuthenticating ? (
-            <div className="space-y-6">
-              <div className="text-center">
-                <p className="vedos-label mb-3">
-                  Personal portfolio operating system
+            <div className="space-y-6 text-center">
+
+              <div>
+                <p className="oxygen-label mb-2">
+                  Personal portfolio experience
                 </p>
 
-                <div className="vedos-glow-text text-4xl font-bold tracking-[0.18em]">
-                  VEDOS
-                </div>
+                <h1 className="m-0 text-3xl font-bold text-[#075f8d]">
+                  Welcome
+                </h1>
 
-                <p className="mt-3 text-xs leading-5 text-cyan-100/80">
-                  Hello, Visitor. Please identify the owner profile to continue.
+                <p className="mt-3 text-sm leading-6 text-[#28779e]">
+                  Hello, Visitor. Explore the creative world of {PORTFOLIO_OWNER}.
                 </p>
               </div>
 
-              <div className="vedos-glass-deep space-y-3 p-4">
-                <div>
-                  <p className="vedos-label mb-1">User profile</p>
-                  <p className="m-0 text-lg text-emerald-200">
-                    {PORTFOLIO_OWNER}
-                  </p>
-                </div>
+              <div className="oxygen-glass-deep text-left p-4">
+                <p className="oxygen-label mb-1">Profile</p>
+                <p className="m-0 text-lg font-bold text-[#0c6590]">
+                  {PORTFOLIO_OWNER}
+                </p>
 
-                <div className="vedos-divider" />
+                <div className="oxygen-divider my-3" />
 
-                <p className="m-0 text-xs leading-5 text-cyan-100/70">
-                  Permission level: VISITOR
+                <p className="m-0 text-xs leading-5 text-[#28779e]">
+                  Session type: Visitor exploration
                   <br />
-                  Desktop access: AVAILABLE
-                  <br />
-                  Session type: PORTFOLIO_EXPLORATION
+                  Desktop access: Available
                 </p>
               </div>
 
               <button
-                className="vedos-button w-full"
+                className="oxygen-button w-full"
                 onClick={handleLogin}
                 type="button"
               >
-                Login as {PORTFOLIO_OWNER}
+                Enter OxygenOS
               </button>
-
-              <p className="text-center text-[0.65rem] tracking-[0.12em] text-emerald-200/60">
-                ACCESS_NODE // VEDOS // READY
-              </p>
             </div>
           ) : (
-            <div className="space-y-6 py-3">
-              <div className="text-center">
-                <p className="vedos-glow-text text-xl tracking-[0.12em]">
-                  AUTHENTICATING VISITOR
+            <div className="space-y-6 py-3 text-center">
+              <div>
+                <p className="m-0 text-xl font-bold text-[#075f8d]">
+                  Opening your desktop
                 </p>
-
-                <p className="mt-3 text-xs leading-5 text-cyan-100/70">
-                  Loading {PORTFOLIO_OWNER}'s desktop session.
-                </p>
-              </div>
-
-              <div className="vedos-glass-deep space-y-2 p-4 text-xs text-emerald-100/85">
-                <p className="m-0">
-                  [{progress >= 25 ? "OK" : ".."}] Loading user interface
-                </p>
-                <p className="m-0">
-                  [{progress >= 50 ? "OK" : ".."}] Mounting portfolio folders
-                </p>
-                <p className="m-0">
-                  [{progress >= 75 ? "OK" : ".."}] Linking terminal subsystem
-                </p>
-                <p className="m-0">
-                  [{progress >= 100 ? "OK" : ".."}] Opening VedOS desktop
+                <p className="mt-3 text-xs leading-5 text-[#28779e]">
+                  Getting everything ready for your visit.
                 </p>
               </div>
 
-              <LoadingBar
-                label="Login in progress"
-                progress={progress}
-              />
+              <div className="oxygen-glass-deep space-y-2 p-4 text-left text-xs text-[#28779e]">
+                <p className="m-0">
+                  {progress >= 25 ? "✓" : "○"} Loading personal workspace
+                </p>
+                <p className="m-0">
+                  {progress >= 50 ? "✓" : "○"} Placing desktop folders
+                </p>
+                <p className="m-0">
+                  {progress >= 75 ? "✓" : "○"} Refreshing nature interface
+                </p>
+                <p className="m-0">
+                  {progress >= 100 ? "✓" : "○"} Opening OxygenOS
+                </p>
+              </div>
 
-              <p className="vedos-cursor text-center text-xs text-emerald-300">
-                ESTABLISHING SESSION
-              </p>
+              <LoadingBar label="Welcome sequence" progress={progress} />
             </div>
           )}
         </WindowFrame>

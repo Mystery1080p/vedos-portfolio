@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 import {
   DEFAULT_FONT_SCALE,
   DEFAULT_WALLPAPER_ID,
@@ -15,6 +15,8 @@ export const useSystemStore = create(
   persist(
     (set) => ({
       wallpaperId: DEFAULT_WALLPAPER_ID,
+      customWallpaperUrl: null,
+      customWallpaperName: null,
       fontScale: DEFAULT_FONT_SCALE,
       soundEnabled: true,
       reducedMotionOverride: false,
@@ -22,6 +24,19 @@ export const useSystemStore = create(
       isStartMenuOpen: false,
 
       setWallpaperId: (wallpaperId) => set({ wallpaperId }),
+
+      setCustomWallpaper: ({ url, name }) =>
+        set({
+          wallpaperId: "custom",
+          customWallpaperUrl: url,
+          customWallpaperName: name,
+        }),
+
+      clearCustomWallpaper: () =>
+        set({
+          customWallpaperUrl: null,
+          customWallpaperName: null,
+        }),
 
       increaseFontScale: () =>
         set((state) => ({
@@ -57,6 +72,8 @@ export const useSystemStore = create(
       resetSystemPreferences: () =>
         set({
           wallpaperId: DEFAULT_WALLPAPER_ID,
+          customWallpaperUrl: null,
+          customWallpaperName: null,
           fontScale: DEFAULT_FONT_SCALE,
           soundEnabled: true,
           reducedMotionOverride: false,
@@ -65,8 +82,7 @@ export const useSystemStore = create(
         }),
     }),
     {
-      name: "vedos-system-preferences",
-      storage: createJSONStorage(() => localStorage),
+      name: "oxygenos-system-preferences",
       partialize: (state) => ({
         wallpaperId: state.wallpaperId,
         fontScale: state.fontScale,

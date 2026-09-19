@@ -1,7 +1,7 @@
 import { Minus, Square, X } from "lucide-react";
 
 function WindowFrame({
-  title = "VedOS Window",
+  title = "OxygenOS Window",
   children,
   className = "",
   showControls = true,
@@ -12,13 +12,13 @@ function WindowFrame({
   isMaximized = false,
 }) {
   return (
-    <section className={`vedos-window ${className}`}>
+    <section className={`oxygen-window oxygen-glass-shine ${className}`}>
       <header
-        className="vedos-window-titlebar touch-none select-none"
+        className="oxygen-window-titlebar touch-none select-none"
         onPointerDown={onTitleBarPointerDown}
       >
         <div className="flex min-w-0 items-center gap-2">
-          <span className="vedos-status-dot shrink-0" />
+          <span className="oxygen-status-dot shrink-0" />
           <span className="truncate">{title}</span>
         </div>
 
@@ -29,7 +29,7 @@ function WindowFrame({
           >
             <button
               aria-label={`Minimize ${title}`}
-              className="vedos-icon-button"
+              className="oxygen-icon-button"
               onClick={onMinimize}
               type="button"
             >
@@ -38,7 +38,7 @@ function WindowFrame({
 
             <button
               aria-label={`${isMaximized ? "Restore" : "Maximize"} ${title}`}
-              className="vedos-icon-button"
+              className="oxygen-icon-button"
               onClick={onMaximize}
               type="button"
             >
@@ -47,7 +47,7 @@ function WindowFrame({
 
             <button
               aria-label={`Close ${title}`}
-              className="vedos-icon-button"
+              className="oxygen-icon-button"
               onClick={onClose}
               type="button"
             >
@@ -57,7 +57,7 @@ function WindowFrame({
         )}
       </header>
 
-      <div className="vedos-window-body">{children}</div>
+      <div className="oxygen-window-body">{children}</div>
     </section>
   );
 }

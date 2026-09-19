@@ -4,27 +4,29 @@ function DesktopIcon({ app, isSelected, onClick, onDoubleClick }) {
   return (
     <button
       aria-label={`Open ${app.title}`}
-      className={`group flex w-24 flex-col items-center gap-2 rounded-sm p-2 text-center transition-colors ${
+      className={`oxygen-desktop-icon group flex w-24 flex-col items-center gap-2 rounded-2xl p-2 text-center transition ${
         isSelected
-          ? "bg-cyan-200/20 outline outline-1 outline-cyan-200/70"
-          : "hover:bg-cyan-200/10"
+          ? "bg-white/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8),0_0.5rem_1.1rem_rgba(0,102,155,0.26)]"
+          : "hover:bg-white/20"
       }`}
       onClick={onClick}
       onDoubleClick={onDoubleClick}
       type="button"
     >
-      <span className="grid h-12 w-12 place-items-center border border-cyan-200/60 bg-emerald-950/65 shadow-[0_0_14px_rgba(54,255,139,0.17)] transition-transform group-hover:-translate-y-0.5">
+      <span className="relative grid h-14 w-14 place-items-center overflow-hidden rounded-2xl border border-white/85 bg-[linear-gradient(145deg,rgba(255,255,255,0.76),rgba(78,202,239,0.64))] shadow-[inset_0_1px_rgba(255,255,255,0.95),inset_0_-2px_rgba(0,110,170,0.18),0_0.4rem_0.9rem_rgba(0,88,140,0.26)] transition duration-200 group-hover:-translate-y-1 group-hover:scale-105">
+        <span className="absolute left-[12%] top-[6%] h-[35%] w-[70%] rounded-full bg-white/45 blur-[1px]" />
+
         <Icon
           aria-hidden="true"
-          className="text-cyan-100 drop-shadow-[0_0_6px_rgba(114,255,229,0.8)]"
-          size={27}
-          strokeWidth={1.5}
+          className="relative z-10 text-[#0675ad] drop-shadow-[0_1px_0_rgba(255,255,255,0.8)]"
+          size={29}
+          strokeWidth={1.55}
         />
       </span>
 
-      <span className="max-w-full break-words text-[0.66rem] leading-4 text-cyan-50 [text-shadow:0_0_5px_rgba(114,255,229,0.75)]">
-        {app.title}
-      </span>
+      <span className="max-w-full break-words rounded-lg bg-[#063f60]/72 px-2 py-1 text-[0.76rem] font-bold leading-4 text-white shadow-[0_1px_2px_rgba(255,255,255,0.28)]">
+  {app.title}
+</span>
     </button>
   );
 }

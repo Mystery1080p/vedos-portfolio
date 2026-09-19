@@ -52,22 +52,23 @@ function Taskbar() {
       <StartMenu />
 
       <footer
-        className="vedos-taskbar fixed bottom-0 left-0 z-[190] flex h-12 w-full items-center gap-2 border-t border-cyan-200/70 bg-[#03130e]/90 px-2 shadow-[0_-4px_18px_rgba(0,0,0,0.35)] backdrop-blur-md"
+        className="oxygen-taskbar fixed bottom-2 left-1/2 z-[190] flex h-14 w-[min(96vw,800px)] -translate-x-1/2 items-center gap-2 rounded-[1.35rem] border border-white/85 bg-[linear-gradient(180deg,rgba(240,254,255,0.82),rgba(38,163,211,0.68))] px-2 shadow-[inset_0_1px_rgba(255,255,255,0.96),0_0.7rem_1.6rem_rgba(0,70,110,0.42)] backdrop-blur-xl"
         onClick={(event) => event.stopPropagation()}
       >
         <button
-          aria-label="Open VedOS Start menu"
-          className="flex h-8 shrink-0 items-center gap-2 border border-cyan-100/70 bg-gradient-to-r from-cyan-200 to-emerald-400 px-3 text-xs font-bold tracking-[0.1em] text-black shadow-[0_0_12px_rgba(114,255,229,0.35)] transition hover:brightness-110"
+          aria-label="Open OxygenOS Start menu"
+          className="relative flex h-10 shrink-0 items-center gap-2 overflow-hidden rounded-xl border border-white/85 bg-[linear-gradient(180deg,#d5ffad_0%,#76da5d_43%,#299246_50%,#49bf50_100%)] px-3 text-xs font-extrabold tracking-[0.04em] text-white shadow-[inset_0_1px_rgba(255,255,255,0.9),inset_0_-1px_rgba(0,77,27,0.35),0_0.18rem_0.45rem_rgba(0,96,52,0.28)] [text-shadow:0_1px_1px_rgba(0,81,43,0.76)] transition hover:brightness-110"
           onClick={handleStartClick}
           type="button"
         >
-          <Grid2X2 size={15} strokeWidth={2.5} />
-          <span>VEDOS</span>
+          <span className="absolute left-[8%] top-[6%] h-[38%] w-[84%] rounded-full bg-white/30" />
+          <Grid2X2 className="relative z-10" size={16} strokeWidth={2.8} />
+          <span className="relative z-10">Oxygen</span>
         </button>
 
-        <div className="h-7 w-px shrink-0 bg-cyan-100/30" />
+        <div className="h-8 w-px shrink-0 bg-white/55" />
 
-        <div className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto">
+       <div className="flex min-w-0 flex-1 items-center justify-center gap-1 overflow-hidden px-0.5 sm:gap-2">
           {taskbarPinnedAppIds.map((appId) => {
             const app = getDesktopApp(appId);
             const Icon = app.icon;
@@ -77,38 +78,38 @@ function Taskbar() {
             return (
               <button
                 aria-label={`Open ${app.title}`}
-                className={`flex h-8 shrink-0 items-center gap-2 border px-3 text-[0.65rem] tracking-[0.06em] transition ${
+                className={`relative flex h-10 shrink-0 items-center gap-2 overflow-hidden rounded-xl border px-3 text-[0.68rem] font-semibold transition ${
                   isActive
-                    ? "border-cyan-200 bg-cyan-200/25 text-cyan-50 shadow-[inset_0_0_10px_rgba(114,255,229,0.12)]"
-                    : "border-cyan-200/30 bg-black/25 text-cyan-100/80 hover:border-cyan-200/80 hover:bg-cyan-100/10"
+                    ? "border-white/90 bg-white/50 text-[#075f8d] shadow-[inset_0_1px_rgba(255,255,255,0.95),0_0.16rem_0.4rem_rgba(0,105,163,0.16)]"
+                    : ":border-white/75 bg-white/30 text-[#063f60] shadow-[inset_0_1px_rgba(255,255,255,0.76)] hover:bg-white/58"
                 }`}
                 key={appId}
                 onClick={(event) => handlePinnedAppClick(event, appId)}
                 type="button"
               >
-                <Icon size={15} strokeWidth={1.7} />
+                <Icon size={17} strokeWidth={1.85} />
                 <span className="hidden sm:inline">{app.shortTitle}</span>
               </button>
             );
           })}
 
           <button
-            aria-label="Open VedOS Terminal"
-            className="flex h-8 shrink-0 items-center gap-2 border border-emerald-200/30 bg-black/25 px-3 text-[0.65rem] tracking-[0.06em] text-emerald-100/80 transition hover:border-emerald-200/80 hover:bg-emerald-100/10"
+            aria-label="Open OxygenOS Terminal"
+            className="flex h-10 shrink-0 items-center gap-2 rounded-xl border border-white/75 bg-white/30 px-3 text-[0.72rem] font-bold text-[#063f60] shadow-[inset_0_1px_rgba(255,255,255,0.76)] transition hover:bg-white/58"
             onClick={handleTerminalClick}
             type="button"
           >
-            <TerminalSquare size={15} strokeWidth={1.7} />
+            <TerminalSquare size={17} strokeWidth={1.85} />
             <span className="hidden md:inline">Terminal</span>
           </button>
 
           <button
             aria-label="Open My Files"
-            className="hidden h-8 shrink-0 items-center gap-2 border border-cyan-200/30 bg-black/25 px-3 text-[0.65rem] tracking-[0.06em] text-cyan-100/80 transition hover:border-cyan-200/80 hover:bg-cyan-100/10 md:flex"
+            className="flex h-10 shrink-0 items-center gap-2 rounded-xl border border-white/75 bg-white/30 px-3 text-[0.72rem] font-bold text-[#063f60] shadow-[inset_0_1px_rgba(255,255,255,0.76)] transition hover:bg-white/58"
             onClick={handleFilesClick}
             type="button"
           >
-            <FolderOpen size={15} strokeWidth={1.7} />
+            <FolderOpen size={17} strokeWidth={1.85} />
             <span>Files</span>
           </button>
         </div>

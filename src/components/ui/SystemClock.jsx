@@ -6,11 +6,11 @@ function SystemClock() {
   return (
     <div
       aria-label={`System date ${date}, system time ${time}, time zone ${timeZone}`}
-      className="flex min-w-28 flex-col border-l border-cyan-200/35 pl-3 text-right text-[0.61rem] leading-4 text-cyan-50/85"
+      className="flex min-w-28 flex-col rounded-xl border border-white/75 bg-[#063f60]/74 px-3 py-1 text-right text-[0.68rem] font-bold leading-4 text-white shadow-[inset_0_1px_rgba(255,255,255,0.22)]"
       title={`Device time zone: ${timeZone}`}
     >
       <span>{time}</span>
-      <span className="text-emerald-200/70">{date}</span>
+      <span className="text-cyan-100">{date}</span>
     </div>
   );
 }

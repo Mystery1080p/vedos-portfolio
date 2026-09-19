@@ -10,12 +10,11 @@ import {
 } from "../lib/constants";
 
 const bootMessages = [
-  "POST: processor handshake established",
-  "MEMCHK: virtual memory banks available",
-  "CRTDRV: phosphor display profile loaded",
-  "FSBOOT: virtual workspace mounted",
-  "NETLINK: public portfolio uplink detected",
-  "VEDOS: desktop environment initialized",
+  "Loading sky and water environment",
+  "Preparing glass interface",
+  "Connecting portfolio modules",
+  "Refreshing desktop icons",
+  "Starting OxygenOS workspace",
 ];
 
 function BootScreen({ onComplete }) {
@@ -48,9 +47,7 @@ function BootScreen({ onComplete }) {
       return undefined;
     }
 
-    const timeoutId = window.setTimeout(() => {
-      onComplete();
-    }, BOOT_COMPLETE_DELAY_MS);
+    const timeoutId = window.setTimeout(onComplete, BOOT_COMPLETE_DELAY_MS);
 
     return () => window.clearTimeout(timeoutId);
   }, [isComplete, onComplete]);
@@ -62,80 +59,60 @@ function BootScreen({ onComplete }) {
 
   return (
     <CrtShell>
-      <main className="vedos-screen-boot flex min-h-screen items-center justify-center bg-black p-4 sm:p-8">
-        <section className="w-full max-w-4xl border border-cyan-300/70 bg-[#03100c]/85 p-4 shadow-[0_0_40px_rgba(54,255,139,0.12)] sm:p-7">
-          <header className="flex flex-wrap items-center justify-between gap-2 border-b border-cyan-300/70 pb-3 text-xs">
-            <div className="vedos-glow-text tracking-[0.16em]">
-              {SYSTEM_NAME} BIOS(TM)
+      <main className="oxygen-boot-in flex min-h-screen items-center justify-center p-4 sm:p-8">
+        <section className="oxygen-glass oxygen-glass-shine w-full max-w-3xl p-5 sm:p-8">
+          <header className="flex flex-wrap items-center justify-between gap-3 border-b border-white/65 pb-4">
+            <div>
+              <p className="oxygen-label mb-1">Personal portfolio environment</p>
+              <h1 className="m-0 text-3xl font-bold tracking-tight text-[#075f8d] sm:text-4xl">
+                {SYSTEM_NAME}
+              </h1>
             </div>
 
-            <div className="flex gap-4 text-emerald-300">
-              <span>RESEARCH</span>
-              <span>VER {SYSTEM_VERSION}</span>
-              <span>PORT 03</span>
+            <div className="rounded-full border border-white/70 bg-white/35 px-3 py-1 text-xs font-bold text-[#13759b]">
+              VERSION {SYSTEM_VERSION}
             </div>
           </header>
 
-          <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_0.9fr]">
-            <div className="space-y-2 text-[0.68rem] leading-5 text-emerald-200/90 sm:text-xs">
-              <p className="m-0 text-cyan-100">
-                COPYRIGHT {PORTFOLIO_OWNER.toUpperCase()} © 2026
+          <div className="mt-7 grid gap-6 sm:grid-cols-[1fr_auto] sm:items-center">
+            <div>
+              <p className="text-sm font-semibold text-[#0b618d]">
+                Welcome. Preparing your portfolio experience.
               </p>
 
-              <p className="m-0 text-emerald-300">
-                BEGINNING SYSTEM INITIALIZATION...
-              </p>
-
-              <div className="mt-4 space-y-1">
+              <div className="mt-4 space-y-2 text-xs text-[#28779e]">
                 {bootMessages.slice(0, visibleMessageCount).map((message) => (
                   <p key={message} className="m-0">
-                    <span className="mr-2 text-cyan-300">[OK]</span>
+                    <span className="mr-2 font-bold text-[#4cbf48]">●</span>
                     {message}
                   </p>
                 ))}
               </div>
 
-              <p className="vedos-cursor vedos-glow-green mt-5">
+              <p className="mt-5 text-xs font-semibold text-[#248d41]">
                 {isComplete
-                  ? "SYSTEM READY. TRANSFERRING TO LOGIN..."
-                  : "PLEASE WAIT. DO NOT POWER OFF."}
+                  ? "Everything is ready. Opening your desktop..."
+                  : "Please wait while OxygenOS starts."}
               </p>
             </div>
 
-            <aside className="vedos-glass-deep vedos-noise min-h-52 p-4">
-              <p className="vedos-label mb-4">VedOS visual kernel</p>
-
-              <pre
-                aria-hidden="true"
-                className="vedos-glow-green m-0 overflow-hidden text-center text-[0.48rem] leading-[0.66rem] sm:text-[0.6rem] sm:leading-[0.8rem]"
-              >
-{`     .-=========-.
-    /  VEDOS //  \\
-   /  MATRIX 01   \\
-  |  [  ◉   ◉  ]  |
-  |      /\\       |
-  |   ___||___    |
-  |  /  CORE  \\   |
-   \\___________/
-      ONLINE`}
-              </pre>
-
-              <div className="mt-5 text-center text-[0.64rem] tracking-[0.14em] text-cyan-100/70">
-                SIGNAL_LOCKED // {progress.toString().padStart(3, "0")}
-              </div>
-            </aside>
+            <div>
+              <img
+                alt="Rotating pixelated Earth"
+                className="h-50 w-50 object-contain [image-rendering:pixelated] sm:h-70 sm:w-70"
+                src="/earth/rotating-earth.gif"
+              />
+            </div>
           </div>
 
           <LoadingBar
             className="mt-8"
-            label={isComplete ? "Boot sequence complete" : "Loading VedOS"}
+            label={isComplete ? "Startup complete" : "Starting OxygenOS"}
             progress={progress}
           />
 
-          <footer className="mt-5 flex flex-wrap justify-between gap-2 border-t border-cyan-300/30 pt-3 text-[0.6rem] tracking-[0.1em] text-cyan-100/60">
-            <span>CPU: WEB_RUNTIME</span>
-            <span>MEMORY: 640K OK</span>
-            <span>DISPLAY: CRT_GLASS</span>
+          <footer className="mt-5 border-t border-white/55 pt-3 text-[0.63rem] font-semibold tracking-[0.06em] text-[#28779e]">
+            {PORTFOLIO_OWNER.toUpperCase()} — PERSONAL PORTFOLIO SYSTEM
           </footer>
         </section>
       </main>

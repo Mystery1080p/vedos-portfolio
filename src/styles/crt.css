@@ -1,172 +1,203 @@
-.vedos-crt {
+.oxygen-display {
   position: relative;
   isolation: isolate;
   min-height: 100vh;
   overflow: hidden;
-  background: var(--desktop-wallpaper);
-}
-
-.vedos-crt::before {
-  position: absolute;
-  z-index: 50;
-  inset: 0;
-  pointer-events: none;
-  content: "";
-  opacity: 0.32;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.34) 0,
-      rgba(0, 0, 0, 0.34) 1px,
-      transparent 1px,
-      transparent 4px
-    ),
+  background-color: #65c7f3;
+  background-image:
     linear-gradient(
-      90deg,
-      rgba(255, 0, 0, 0.025),
-      transparent 35%,
-      rgba(0, 255, 255, 0.025)
-    );
-  mix-blend-mode: screen;
+      180deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(15, 137, 192, 0.04)
+    ),
+    var(--oxygen-wallpaper-image);
+  background-position: center;
+  background-size: cover;
 }
 
-.vedos-crt::after {
+.oxygen-display::before {
   position: absolute;
-  z-index: 51;
+  z-index: 500;
   inset: 0;
   pointer-events: none;
   content: "";
   opacity: 0.12;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 48%,
-    rgba(0, 0, 0, 0.28) 100%
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(1, 69, 99, 0.12) 0,
+    rgba(1, 69, 99, 0.12) 1px,
+    transparent 1px,
+    transparent 4px
   );
-  box-shadow: inset 0 0 8rem rgba(0, 0, 0, 0.75);
+  mix-blend-mode: multiply;
 }
 
-.vedos-crt-content {
+.oxygen-display::after {
+  position: absolute;
+  z-index: 501;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      transparent 45%,
+      rgba(0, 56, 91, 0.1) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05),
+      transparent 25%,
+      transparent 75%,
+      rgba(0, 76, 110, 0.08)
+    );
+  box-shadow: inset 0 0 5rem rgba(0, 63, 95, 0.16);
+}
+
+.oxygen-display-content {
   position: relative;
   z-index: 1;
   min-height: 100vh;
 }
 
-.vedos-flicker {
-  animation: vedos-flicker 7s infinite steps(1, end);
-}
-
-.vedos-glow-text {
-  color: var(--vedos-cyan-soft);
-  text-shadow:
-    0 0 4px rgba(114, 255, 229, 0.84),
-    0 0 12px rgba(54, 255, 139, 0.42);
-}
-
-.vedos-glow-green {
-  color: var(--vedos-green);
-  text-shadow:
-    0 0 5px rgba(54, 255, 139, 0.95),
-    0 0 14px rgba(54, 255, 139, 0.42);
-}
-
-.vedos-screen-boot {
-  animation: vedos-screen-boot 600ms ease-out both;
+.oxygen-boot-in {
+  animation: oxygen-boot-in 700ms cubic-bezier(0.17, 0.84, 0.44, 1) both;
   transform-origin: center;
 }
 
-.vedos-cursor::after {
-  display: inline-block;
-  width: 0.6em;
-  height: 1em;
-  margin-left: 0.2em;
-  vertical-align: -0.15em;
-  background: currentColor;
+.oxygen-glass-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.oxygen-glass-shine::after {
+  position: absolute;
+  top: -80%;
+  left: -25%;
+  width: 36%;
+  height: 260%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.43),
+    transparent
+  );
   content: "";
-  animation: vedos-cursor-blink 900ms steps(1, end) infinite;
+  transform: rotate(24deg);
+  animation: oxygen-glass-shine 7s ease-in-out infinite;
 }
 
-@keyframes vedos-flicker {
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  7% {
-    opacity: 0.97;
-  }
-
-  8% {
-    opacity: 0.9;
-  }
-
-  9% {
-    opacity: 1;
-  }
-
-  47% {
-    opacity: 0.98;
-  }
-
-  48% {
-    opacity: 0.92;
-  }
-
-  49% {
-    opacity: 1;
-  }
-
-  76% {
-    opacity: 0.95;
-  }
-
-  77% {
-    opacity: 1;
-  }
+.oxygen-float {
+  animation: oxygen-float 4.6s ease-in-out infinite;
 }
 
-@keyframes vedos-cursor-blink {
-  0%,
-  47% {
-    opacity: 1;
-  }
+.oxygen-bubble {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  border-radius: 999px;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 28% 23%,
+      rgba(255, 255, 255, 0.9) 0 5%,
+      transparent 6%
+    ),
+    radial-gradient(
+      circle at 35% 34%,
+      rgba(230, 255, 255, 0.44),
+      rgba(53, 204, 247, 0.16) 50%,
+      rgba(0, 103, 164, 0.2) 100%
+    );
+  box-shadow:
+    inset -6px -8px 16px rgba(0, 100, 160, 0.15),
+    inset 4px 4px 9px rgba(255, 255, 255, 0.72),
+    0 8px 18px rgba(0, 96, 151, 0.15);
+  animation: oxygen-bubble-drift 11s ease-in-out infinite;
+}
 
-  48%,
-  100% {
+.oxygen-bubble-one {
+  top: 15%;
+  right: 17%;
+  width: 5.25rem;
+  height: 5.25rem;
+  animation-delay: -2s;
+}
+
+.oxygen-bubble-two {
+  top: 45%;
+  right: 7%;
+  width: 1.6rem;
+  height: 1.6rem;
+  animation-delay: -7s;
+}
+
+.oxygen-bubble-three {
+  top: 25%;
+  right: 36%;
+  width: 2.35rem;
+  height: 2.35rem;
+  animation-delay: -5s;
+}
+
+@keyframes oxygen-boot-in {
+  from {
     opacity: 0;
-  }
-}
-
-@keyframes vedos-screen-boot {
-  0% {
-    opacity: 0;
-    transform: scaleY(0.01) scaleX(0.2);
+    transform: scale(0.96);
   }
 
-  55% {
-    opacity: 1;
-    transform: scaleY(0.02) scaleX(1);
-  }
-
-  100% {
+  to {
     opacity: 1;
     transform: scale(1);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .vedos-flicker,
-  .vedos-screen-boot,
-  .vedos-cursor::after {
-    animation: none !important;
+@keyframes oxygen-glass-shine {
+  0%,
+  62%,
+  100% {
+    transform: translateX(-260%) rotate(24deg);
   }
 
-  .vedos-crt::before {
-    opacity: 0.18;
+  83% {
+    transform: translateX(680%) rotate(24deg);
   }
 }
 
-html[data-vedos-motion="reduce"] .vedos-flicker,
-html[data-vedos-motion="reduce"] .vedos-screen-boot,
-html[data-vedos-motion="reduce"] .vedos-cursor::after {
+@keyframes oxygen-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes oxygen-bubble-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(-9px, -18px, 0) scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oxygen-boot-in,
+  .oxygen-glass-shine::after,
+  .oxygen-float,
+  .oxygen-bubble {
+    animation: none !important;
+  }
+}
+
+html[data-oxygen-motion="reduce"] .oxygen-boot-in,
+html[data-oxygen-motion="reduce"] .oxygen-glass-shine::after,
+html[data-oxygen-motion="reduce"] .oxygen-float,
+html[data-oxygen-motion="reduce"] .oxygen-bubble {
   animation: none !important;
 }

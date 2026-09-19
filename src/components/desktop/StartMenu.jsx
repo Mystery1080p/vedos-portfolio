@@ -1,6 +1,7 @@
 import {
   FolderOpen,
   MonitorCog,
+  Palette,
   Power,
   TerminalSquare,
   UserRound,
@@ -19,25 +20,14 @@ function StartMenu() {
   }
 
   const menuItems = [
+    { id: "about", label: "About Vedanth", icon: UserRound },
+    { id: "projects", label: "Project Archive", icon: FolderOpen },
+    { id: "terminal", label: "Open Terminal", icon: TerminalSquare },
+    { id: "file-manager", label: "My Files", icon: FolderOpen },
     {
-      id: "about",
-      label: "About Vedanth",
-      icon: UserRound,
-    },
-    {
-      id: "projects",
-      label: "Project Archive",
-      icon: FolderOpen,
-    },
-    {
-      id: "terminal",
-      label: "Open Terminal",
-      icon: TerminalSquare,
-    },
-    {
-      id: "file-manager",
-      label: "My Files",
-      icon: FolderOpen,
+      id: "personalization",
+      label: "Personalization",
+      icon: Palette,
     },
   ];
 
@@ -48,12 +38,12 @@ function StartMenu() {
 
   return (
     <aside
-  aria-label="VedOS Start menu"
-  className="vedos-glass fixed bottom-12 left-2 z-[200] w-72 overflow-hidden"
-  onClick={(event) => event.stopPropagation()}
->
-      <header className="border-b border-cyan-300/50 bg-gradient-to-r from-cyan-300 to-emerald-400 px-3 py-2 text-xs font-bold tracking-[0.14em] text-black">
-        VEDOS // START MENU
+      aria-label="OxygenOS Start menu"
+      className="oxygen-glass fixed bottom-[4.3rem] left-1/2 z-[200] w-[min(92vw,320px)] -translate-x-1/2 overflow-hidden rounded-[1.4rem]"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <header className="border-b border-white/75 bg-[linear-gradient(180deg,rgba(232,255,255,0.91),rgba(86,204,239,0.72))] px-4 py-3 text-xs font-extrabold tracking-[0.07em] text-[#075a85]">
+        OXYGENOS START
       </header>
 
       <div className="p-2">
@@ -63,14 +53,18 @@ function StartMenu() {
 
           return (
             <button
-              className="flex w-full items-center gap-3 px-3 py-3 text-left text-xs text-cyan-100 transition hover:bg-cyan-200 hover:text-black"
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-xs font-semibold text-[#0b618d] transition hover:bg-white/55"
               key={item.id}
               onClick={() => openApp(item.id)}
               type="button"
             >
-              <Icon size={18} strokeWidth={1.5} />
+              <span className="grid h-8 w-8 place-items-center rounded-lg border border-white/75 bg-sky-100/55 shadow-[inset_0_1px_rgba(255,255,255,0.9)]">
+                <Icon size={17} strokeWidth={1.65} />
+              </span>
+
               <span className="flex-1">{item.label}</span>
-              <span className="text-[0.58rem] opacity-60">
+
+              <span className="text-[0.58rem] font-normal text-[#287ca2]/70">
                 {app?.shortTitle}
               </span>
             </button>
@@ -78,13 +72,13 @@ function StartMenu() {
         })}
       </div>
 
-      <div className="border-t border-cyan-300/35 p-2">
+      <div className="border-t border-white/65 p-2">
         <button
-          className="flex w-full items-center gap-3 px-3 py-3 text-left text-xs text-pink-200 transition hover:bg-pink-400 hover:text-black"
+          className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-xs font-semibold text-[#2b7593] transition hover:bg-white/55"
           onClick={closeStartMenu}
           type="button"
         >
-          <Power size={18} strokeWidth={1.5} />
+          <Power size={18} strokeWidth={1.65} />
           <span>Close Start Menu</span>
           <MonitorCog className="ml-auto opacity-60" size={16} />
         </button>

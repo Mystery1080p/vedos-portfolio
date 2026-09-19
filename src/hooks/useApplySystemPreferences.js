@@ -4,19 +4,25 @@ import { useSystemStore } from "../store/useSystemStore";
 
 function useApplySystemPreferences() {
   const wallpaperId = useSystemStore((state) => state.wallpaperId);
+  const customWallpaperUrl = useSystemStore(
+    (state) => state.customWallpaperUrl
+  );
   const fontScale = useSystemStore((state) => state.fontScale);
   const reducedMotionOverride = useSystemStore(
     (state) => state.reducedMotionOverride
   );
 
   useEffect(() => {
-    const wallpaper = getWallpaperById(wallpaperId);
+    const wallpaper =
+      wallpaperId === "custom" && customWallpaperUrl
+        ? { src: customWallpaperUrl }
+        : getWallpaperById(wallpaperId);
 
     document.documentElement.style.setProperty(
-      "--desktop-wallpaper",
-      wallpaper.value
+      "--oxygen-wallpaper-image",
+      `url("${wallpaper.src}")`
     );
-  }, [wallpaperId]);
+  }, [wallpaperId, customWallpaperUrl]);
 
   useEffect(() => {
     document.documentElement.style.setProperty(
@@ -26,7 +32,7 @@ function useApplySystemPreferences() {
   }, [fontScale]);
 
   useEffect(() => {
-    document.documentElement.dataset.vedosMotion =
+    document.documentElement.dataset.oxygenMotion =
       reducedMotionOverride ? "reduce" : "system";
   }, [reducedMotionOverride]);
 }

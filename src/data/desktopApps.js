@@ -2,6 +2,7 @@ import {
   Code2,
   FolderOpen,
   Mail,
+  Palette,
   TerminalSquare,
   UserRound,
 } from "lucide-react";
@@ -61,6 +62,16 @@ export const systemApps = [
     defaultPosition: { x: 190, y: 105 },
     defaultSize: { width: 720, height: 480 },
     accent: "cyan",
+  },
+  {
+  id: "personalization",
+  title: "Personalization",
+  shortTitle: "Themes",
+  icon: Palette,
+  description: "Wallpapers and OxygenOS appearance",
+  defaultPosition: { x: 330, y: 115 },
+  defaultSize: { width: 760, height: 540 },
+  accent: "aqua",
   },
 ];
 

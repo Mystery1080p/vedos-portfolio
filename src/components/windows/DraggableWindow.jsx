@@ -104,7 +104,7 @@ function DraggableWindow({ app, children }) {
 
   return (
     <div
-      className="vedos-window-layer"
+      className="oxygen-window-layer"
       onPointerDown={() => focusWindow(app.id)}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}

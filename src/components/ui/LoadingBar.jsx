@@ -9,10 +9,12 @@ function LoadingBar({
   return (
     <div className={className}>
       <div className="mb-2 flex items-center justify-between gap-3">
-        <span className="vedos-label">{label}</span>
+        <span className="oxygen-label">{label}</span>
 
         {showPercentage && (
-          <span className="text-xs text-emerald-200">{safeProgress}%</span>
+          <span className="text-xs font-bold text-[#20769b]">
+            {safeProgress}%
+          </span>
         )}
       </div>
 
@@ -21,11 +23,11 @@ function LoadingBar({
         aria-valuemax="100"
         aria-valuemin="0"
         aria-valuenow={safeProgress}
-        className="h-5 border border-cyan-300/80 bg-black/55 p-[3px]"
+        className="h-5 overflow-hidden rounded-full border border-white/80 bg-sky-900/15 p-[3px] shadow-[inset_0_1px_3px_rgba(0,89,140,0.2)]"
         role="progressbar"
       >
         <div
-          className="h-full bg-[repeating-linear-gradient(90deg,#36ff8b_0,#36ff8b_12px,#72ffe5_12px,#72ffe5_16px)] shadow-[0_0_14px_rgba(114,255,229,0.85)] transition-[width] duration-100 ease-linear"
+          className="h-full rounded-full bg-[linear-gradient(90deg,#54bd46_0%,#d9ff87_32%,#7eebff_58%,#169ed0_100%)] shadow-[inset_0_1px_rgba(255,255,255,0.8),0_0_10px_rgba(69,195,232,0.6)] transition-[width] duration-100 ease-linear"
           style={{ width: `${safeProgress}%` }}
         />
       </div>
