@@ -7,7 +7,8 @@ import DraggableWindow from "../components/windows/DraggableWindow";
 import { desktopApps, getDesktopApp } from "../data/desktopApps";
 import { useSystemStore } from "../store/useSystemStore";
 import { useWindowStore } from "../store/useWindowStore";
-import { Palette } from "lucide-react";
+import { Music2, Palette } from "lucide-react";
+import MusicPlayerWindow from "../components/windows/MusicPlayerWindow";
 
 function PlaceholderAppContent({ app }) {
   const Icon = app.icon;
@@ -113,8 +114,11 @@ function DesktopScreen() {
         </DraggableWindow>
 
         <DraggableWindow app={getDesktopApp("personalization")}>
-  <PersonalizationWindow />
-</DraggableWindow>
+          <PersonalizationWindow />
+        </DraggableWindow>
+        <DraggableWindow app={getDesktopApp("music-player")}>
+          <MusicPlayerWindow />
+        </DraggableWindow>
 
         <Taskbar />
 

@@ -3,6 +3,7 @@ import {
   MonitorCog,
   Palette,
   Power,
+  Music2,
   TerminalSquare,
   UserRound,
 } from "lucide-react";
@@ -28,6 +29,11 @@ function StartMenu() {
       id: "personalization",
       label: "Personalization",
       icon: Palette,
+    },
+    {
+      id: "music-player",
+      label: "Oxygen Music",
+      icon: Music2,
     },
   ];
 

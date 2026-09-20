@@ -24,7 +24,7 @@ function DesktopIcon({ app, isSelected, onClick, onDoubleClick }) {
         />
       </span>
 
-      <span className="max-w-full break-words rounded-lg bg-[#063f60]/72 px-2 py-1 text-[0.76rem] font-bold leading-4 text-white shadow-[0_1px_2px_rgba(255,255,255,0.28)]">
+      <span className="max-w-full break-words rounded-lg bg-[#063f60]/12 px-2 py-1 text-[0.80rem] leading-4 text-white shadow-[0_1px_2px_rgba(255,255,255,0.28)]">
   {app.title}
 </span>
     </button>

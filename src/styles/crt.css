@@ -1,9 +1,15 @@
+/* =========================================
+   OXYGEN CRT DISPLAY
+   ========================================= */
+
 .oxygen-display {
   position: relative;
   isolation: isolate;
   min-height: 100vh;
   overflow: hidden;
+
   background-color: #65c7f3;
+
   background-image:
     linear-gradient(
       180deg,
@@ -11,9 +17,19 @@
       rgba(15, 137, 192, 0.04)
     ),
     var(--oxygen-wallpaper-image);
+
   background-position: center;
   background-size: cover;
+
+  /* CRT tuning */
+  --crt-wobble-strength: 2px;
+  --crt-light-opacity: 0.08;
 }
+
+
+/* =========================================
+   CRT SCANLINES
+   ========================================= */
 
 .oxygen-display::before {
   position: absolute;
@@ -21,16 +37,24 @@
   inset: 0;
   pointer-events: none;
   content: "";
-  opacity: 0.12;
+
+  opacity: 0.16;
+
   background: repeating-linear-gradient(
     to bottom,
     rgba(1, 69, 99, 0.12) 0,
     rgba(1, 69, 99, 0.12) 1px,
     transparent 1px,
-    transparent 4px
+    transparent 3px
   );
+
   mix-blend-mode: multiply;
 }
+
+
+/* =========================================
+   CRT VIGNETTE + SCREEN WOBBLE
+   ========================================= */
 
 .oxygen-display::after {
   position: absolute;
@@ -38,6 +62,7 @@
   inset: 0;
   pointer-events: none;
   content: "";
+
   background:
     radial-gradient(
       ellipse at 50% 45%,
@@ -51,8 +76,19 @@
       transparent 75%,
       rgba(0, 76, 110, 0.08)
     );
-  box-shadow: inset 0 0 5rem rgba(0, 63, 95, 0.16);
+
+  box-shadow:
+    inset 0 0 5rem rgba(0, 63, 95, 0.16);
+
+  animation: crt-wobble 5s ease-in-out infinite;
+
+  will-change: transform, opacity, filter;
 }
+
+
+/* =========================================
+   CONTENT
+   ========================================= */
 
 .oxygen-display-content {
   position: relative;
@@ -60,10 +96,64 @@
   min-height: 100vh;
 }
 
+
+/* =========================================
+   CRT MID-SCREEN LIGHT
+   ========================================= */
+
+.oxygen-display-content::before {
+  position: fixed;
+  z-index: 499;
+  inset: -10%;
+  pointer-events: none;
+  content: "";
+
+  background:
+    radial-gradient(
+      ellipse at 50% 48%,
+      rgba(
+        255,
+        255,
+        255,
+        var(--crt-light-opacity)
+      ) 0%,
+      rgba(255, 255, 255, 0.025) 38%,
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.025) 45%,
+      rgba(0, 80, 120, 0.035) 52%,
+      transparent 100%
+    );
+
+  mix-blend-mode: screen;
+
+  animation: crt-mid-light 6s ease-in-out infinite;
+
+  will-change: transform, opacity;
+}
+
+
+/* =========================================
+   BOOT ANIMATION
+   ========================================= */
+
 .oxygen-boot-in {
-  animation: oxygen-boot-in 700ms cubic-bezier(0.17, 0.84, 0.44, 1) both;
+  animation:
+    oxygen-boot-in
+    700ms
+    cubic-bezier(0.17, 0.84, 0.44, 1)
+    both;
+
   transform-origin: center;
 }
+
+
+/* =========================================
+   GLASS SHINE
+   ========================================= */
 
 .oxygen-glass-shine {
   position: relative;
@@ -74,29 +164,56 @@
   position: absolute;
   top: -80%;
   left: -25%;
+
   width: 36%;
   height: 260%;
+
   pointer-events: none;
+
   background: linear-gradient(
     90deg,
     transparent,
     rgba(255, 255, 255, 0.43),
     transparent
   );
+
   content: "";
+
   transform: rotate(24deg);
-  animation: oxygen-glass-shine 7s ease-in-out infinite;
+
+  animation:
+    oxygen-glass-shine
+    7s
+    ease-in-out
+    infinite;
 }
 
+
+/* =========================================
+   FLOATING ELEMENT
+   ========================================= */
+
 .oxygen-float {
-  animation: oxygen-float 4.6s ease-in-out infinite;
+  animation:
+    oxygen-float
+    4.6s
+    ease-in-out
+    infinite;
 }
+
+
+/* =========================================
+   BUBBLES
+   ========================================= */
 
 .oxygen-bubble {
   position: absolute;
+
   border: 1px solid rgba(255, 255, 255, 0.76);
   border-radius: 999px;
+
   pointer-events: none;
+
   background:
     radial-gradient(
       circle at 28% 23%,
@@ -109,36 +226,57 @@
       rgba(53, 204, 247, 0.16) 50%,
       rgba(0, 103, 164, 0.2) 100%
     );
+
   box-shadow:
     inset -6px -8px 16px rgba(0, 100, 160, 0.15),
     inset 4px 4px 9px rgba(255, 255, 255, 0.72),
     0 8px 18px rgba(0, 96, 151, 0.15);
-  animation: oxygen-bubble-drift 11s ease-in-out infinite;
+
+  animation:
+    oxygen-bubble-drift
+    11s
+    ease-in-out
+    infinite;
 }
 
 .oxygen-bubble-one {
   top: 15%;
   right: 17%;
+
   width: 5.25rem;
   height: 5.25rem;
+
   animation-delay: -2s;
 }
 
 .oxygen-bubble-two {
   top: 45%;
   right: 7%;
+
   width: 1.6rem;
   height: 1.6rem;
+
   animation-delay: -7s;
 }
 
 .oxygen-bubble-three {
   top: 25%;
   right: 36%;
+
   width: 2.35rem;
   height: 2.35rem;
+
   animation-delay: -5s;
 }
+
+
+/* =========================================
+   KEYFRAMES
+   ========================================= */
+
+/* -----------------------------------------
+   Boot
+   ----------------------------------------- */
 
 @keyframes oxygen-boot-in {
   from {
@@ -152,6 +290,11 @@
   }
 }
 
+
+/* -----------------------------------------
+   Glass Shine
+   ----------------------------------------- */
+
 @keyframes oxygen-glass-shine {
   0%,
   62%,
@@ -164,6 +307,11 @@
   }
 }
 
+
+/* -----------------------------------------
+   Floating
+   ----------------------------------------- */
+
 @keyframes oxygen-float {
   0%,
   100% {
@@ -175,29 +323,136 @@
   }
 }
 
+
+/* -----------------------------------------
+   Bubble Drift
+   ----------------------------------------- */
+
 @keyframes oxygen-bubble-drift {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) scale(1);
+    transform:
+      translate3d(0, 0, 0)
+      scale(1);
   }
 
   50% {
-    transform: translate3d(-9px, -18px, 0) scale(1.06);
+    transform:
+      translate3d(-9px, -18px, 0)
+      scale(1.06);
   }
 }
+
+
+/* =========================================
+   CRT WOBBLE
+   ========================================= */
+
+@keyframes crt-wobble {
+  0%,
+  100% {
+    transform:
+      translate3d(0, 0, 0)
+      scale(1);
+
+    filter: brightness(1);
+  }
+
+  20% {
+    transform:
+      translate3d(-1px, 0.5px, 0)
+      scale(1.002);
+
+    filter: brightness(1.015);
+  }
+
+  40% {
+    transform:
+      translate3d(1px, -0.5px, 0)
+      scale(1.001);
+
+    filter: brightness(0.99);
+  }
+
+  60% {
+    transform:
+      translate3d(-0.5px, 1px, 0)
+      scale(1.002);
+
+    filter: brightness(1.02);
+  }
+
+  80% {
+    transform:
+      translate3d(1px, 0, 0)
+      scale(1.001);
+
+    filter: brightness(0.995);
+  }
+}
+
+
+/* =========================================
+   CRT MID LIGHT
+   ========================================= */
+
+@keyframes crt-mid-light {
+  0%,
+  100% {
+    opacity: 0.65;
+
+    transform:
+      translate3d(0, -1%, 0);
+  }
+
+  25% {
+    opacity: 0.9;
+
+    transform:
+      translate3d(-0.5%, 0.5%, 0);
+  }
+
+  50% {
+    opacity: 0.72;
+
+    transform:
+      translate3d(0.5%, 1%, 0);
+  }
+
+  75% {
+    opacity: 0.95;
+
+    transform:
+      translate3d(-0.3%, -0.5%, 0);
+  }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
   .oxygen-boot-in,
   .oxygen-glass-shine::after,
   .oxygen-float,
-  .oxygen-bubble {
+  .oxygen-bubble,
+  .oxygen-display::after,
+  .oxygen-display-content::before {
     animation: none !important;
   }
 }
 
+
+/* =========================================
+   MANUAL MOTION REDUCTION
+   ========================================= */
+
 html[data-oxygen-motion="reduce"] .oxygen-boot-in,
 html[data-oxygen-motion="reduce"] .oxygen-glass-shine::after,
 html[data-oxygen-motion="reduce"] .oxygen-float,
-html[data-oxygen-motion="reduce"] .oxygen-bubble {
+html[data-oxygen-motion="reduce"] .oxygen-bubble,
+html[data-oxygen-motion="reduce"] .oxygen-display::after,
+html[data-oxygen-motion="reduce"] .oxygen-display-content::before {
   animation: none !important;
 }

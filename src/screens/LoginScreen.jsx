@@ -3,10 +3,18 @@ import CrtShell from "../components/effects/CrtShell";
 import LoadingBar from "../components/ui/LoadingBar";
 import WindowFrame from "../components/windows/WindowFrame";
 import { LOGIN_DURATION_MS, PORTFOLIO_OWNER } from "../lib/constants";
+import {
+  playWelcomeSound,
+  preloadWelcomeSound,
+} from "../lib/audio";
 
 function LoginScreen({ onLoginComplete }) {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+  preloadWelcomeSound();
+}, []);
 
   useEffect(() => {
     if (!isAuthenticating) {
@@ -37,6 +45,11 @@ function LoginScreen({ onLoginComplete }) {
   }, [isAuthenticating, onLoginComplete]);
 
   const handleLogin = () => {
+    if (isAuthenticating) {
+      return;
+    }
+
+    playWelcomeSound();
     setProgress(0);
     setIsAuthenticating(true);
   };
@@ -51,6 +64,7 @@ function LoginScreen({ onLoginComplete }) {
         >
           {!isAuthenticating ? (
             <div className="space-y-6 text-center">
+              
 
               <div>
                 <p className="oxygen-label mb-2">
@@ -62,11 +76,12 @@ function LoginScreen({ onLoginComplete }) {
                 </h1>
 
                 <p className="mt-3 text-sm leading-6 text-[#28779e]">
-                  Hello, Visitor. Explore the creative world of {PORTFOLIO_OWNER}.
+                  Hello, Visitor. Explore the creative world of{" "}
+                  {PORTFOLIO_OWNER}.
                 </p>
               </div>
 
-              <div className="oxygen-glass-deep text-left p-4">
+              <div className="oxygen-glass-deep p-4 text-left">
                 <p className="oxygen-label mb-1">Profile</p>
                 <p className="m-0 text-lg font-bold text-[#0c6590]">
                   {PORTFOLIO_OWNER}

@@ -2,6 +2,8 @@ import {
   Code2,
   FolderOpen,
   Mail,
+  Music2,
+  Radio,
   Palette,
   TerminalSquare,
   UserRound,
@@ -53,6 +55,17 @@ export const desktopApps = [
 export const taskbarPinnedAppIds = ["about", "projects", "contact"];
 
 export const systemApps = [
+
+  {
+  id: "music-player",
+  title: "Oxygen Music",
+  shortTitle: "Music",
+  icon: Music2,
+  description: "Music player and local audio collection",
+  defaultPosition: { x: 250, y: 70 },
+  defaultSize: { width: 820, height: 560 },
+  accent: "aqua",
+  },
   {
     id: "file-manager",
     title: "My Files",

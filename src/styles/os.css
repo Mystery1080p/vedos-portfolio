@@ -290,3 +290,56 @@
     transition: none;
   }
 }
+
+.oxygen-range {
+  height: 0.55rem;
+  accent-color: #159fce;
+  cursor: pointer;
+}
+
+.oxygen-player-control {
+  display: inline-grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 999px;
+  color: #0b618d;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.78),
+      rgba(125, 221, 248, 0.48)
+    );
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.9),
+    0 0.18rem 0.4rem rgba(0, 91, 140, 0.16);
+  transition: 160ms ease;
+}
+
+.oxygen-player-control:hover {
+  color: #fff;
+  background:
+    linear-gradient(
+      180deg,
+      #9eeeff,
+      #139ccb
+    );
+  transform: translateY(-1px) scale(1.04);
+}
+
+.oxygen-player-control-main {
+  width: 2.8rem;
+  height: 2.8rem;
+  color: #fff;
+  background:
+    linear-gradient(
+      180deg,
+      #d9ff92,
+      #52c74a 46%,
+      #218e40 100%
+    );
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.9),
+    0 0.22rem 0.5rem rgba(0, 108, 57, 0.24);
+}

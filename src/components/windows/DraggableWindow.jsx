@@ -14,9 +14,9 @@ function DraggableWindow({ app, children }) {
   const focusWindow = useWindowStore((state) => state.focusWindow);
   const setWindowPosition = useWindowStore((state) => state.setWindowPosition);
 
-  if (!windowState?.isOpen || windowState.isMinimized) {
-    return null;
-  }
+  if (!windowState?.isOpen) {
+  return null;
+}
 
   const handleTitleBarPointerDown = (event) => {
     if (windowState.isMaximized || event.button !== 0) {
@@ -87,20 +87,25 @@ function DraggableWindow({ app, children }) {
     dragStateRef.current = null;
   };
 
-  const style = windowState.isMaximized
-    ? {
-        position: "fixed",
-        inset: "8px 8px 56px 8px",
-        zIndex: windowState.zIndex,
-      }
-    : {
-        position: "fixed",
-        left: `${windowState.position.x}px`,
-        top: `${windowState.position.y}px`,
-        width: `min(${windowState.size.width}px, calc(100vw - 16px))`,
-        height: `min(${windowState.size.height}px, calc(100vh - 64px))`,
-        zIndex: windowState.zIndex,
-      };
+  const baseStyle = windowState.isMaximized
+  ? {
+      position: "fixed",
+      inset: "8px 8px 56px 8px",
+      zIndex: windowState.zIndex,
+    }
+  : {
+      position: "fixed",
+      left: `${windowState.position.x}px`,
+      top: `${windowState.position.y}px`,
+      width: `min(${windowState.size.width}px, calc(100vw - 16px))`,
+      height: `min(${windowState.size.height}px, calc(100vh - 64px))`,
+      zIndex: windowState.zIndex,
+    };
+
+const style = {
+  ...baseStyle,
+  display: windowState.isMinimized ? "none" : "block",
+};
 
   return (
     <div
