@@ -343,3 +343,67 @@
     inset 0 1px rgba(255, 255, 255, 0.9),
     0 0.22rem 0.5rem rgba(0, 108, 57, 0.24);
 }
+
+.oxygen-search-suggestions {
+  animation: oxygen-search-pop 150ms ease-out both;
+}
+
+@keyframes oxygen-search-pop {
+  from {
+    opacity: 0;
+    transform: translateY(5px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 520px) {
+  .oxygen-taskbar {
+    width: calc(100vw - 0.75rem);
+  }
+
+  .oxygen-search-suggestions {
+    min-width: min(19rem, calc(100vw - 1rem));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oxygen-search-suggestions {
+    animation: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .oxygen-taskbar {
+    width: calc(100vw - 0.75rem);
+  }
+
+  .oxygen-taskbar > div.relative {
+    flex: 1;
+    width: auto;
+  }
+}
+.oxygen-taskbar {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.oxygen-taskbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .oxygen-taskbar {
+    left: 0.375rem;
+    width: calc(100vw - 0.75rem);
+    max-width: none;
+    transform: none;
+  }
+
+  .oxygen-taskbar > div:has(.oxygen-search-suggestions) {
+    width: min(12rem, 34vw);
+  }
+}

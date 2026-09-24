@@ -1,11 +1,8 @@
 import {
-  FolderOpen,
   MonitorCog,
+  Music2,
   Palette,
   Power,
-  Music2,
-  TerminalSquare,
-  UserRound,
 } from "lucide-react";
 import { getDesktopApp } from "../../data/desktopApps";
 import { useSystemStore } from "../../store/useSystemStore";
@@ -21,10 +18,6 @@ function StartMenu() {
   }
 
   const menuItems = [
-    { id: "about", label: "About Vedanth", icon: UserRound },
-    { id: "projects", label: "Project Archive", icon: FolderOpen },
-    { id: "terminal", label: "Open Terminal", icon: TerminalSquare },
-    { id: "file-manager", label: "My Files", icon: FolderOpen },
     {
       id: "personalization",
       label: "Personalization",
