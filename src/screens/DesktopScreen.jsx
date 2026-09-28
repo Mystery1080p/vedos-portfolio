@@ -2,13 +2,15 @@ import { useState } from "react";
 import DesktopIcon from "../components/desktop/DesktopIcon";
 import Taskbar from "../components/desktop/Taskbar";
 import CrtShell from "../components/effects/CrtShell";
-import PersonalizationWindow from "../components/windows/PersonalizationWindow";
 import DraggableWindow from "../components/windows/DraggableWindow";
+import FileExplorerWindow from "../components/windows/FileExplorerWindow";
+import MusicPlayerWindow from "../components/windows/MusicPlayerWindow";
+import PersonalizationWindow from "../components/windows/PersonalizationWindow";
+import TerminalWindow from "../components/windows/TerminalWindow";
 import { desktopApps, getDesktopApp } from "../data/desktopApps";
+import { useFileSystemStore } from "../store/useFileSystemStore";
 import { useSystemStore } from "../store/useSystemStore";
 import { useWindowStore } from "../store/useWindowStore";
-import { Music2, Palette } from "lucide-react";
-import MusicPlayerWindow from "../components/windows/MusicPlayerWindow";
 
 function PlaceholderAppContent({ app }) {
   const Icon = app.icon;
@@ -22,9 +24,11 @@ function PlaceholderAppContent({ app }) {
 
         <div>
           <p className="oxygen-label mb-1">OxygenOS application</p>
-          <h2 className="m-0 font-['Trebuchet_MS'] text-xl font-bold text-[#075a84]">
+
+          <h2 className="m-0 text-xl font-bold text-[#075a84]">
             {app.title}
           </h2>
+
           <p className="mt-2 text-xs leading-5 text-[#28779e]">
             {app.description}
           </p>
@@ -34,10 +38,13 @@ function PlaceholderAppContent({ app }) {
       <div className="oxygen-divider" />
 
       <div className="oxygen-glass-deep flex-1 p-4 text-xs leading-6 text-[#176e96]">
-        <p className="m-0">Welcome to the OxygenOS application environment.</p>
         <p className="m-0">
-          This module will receive its final portfolio functionality in the
-          next implementation stages.
+          Welcome to the OxygenOS application environment.
+        </p>
+
+        <p className="m-0">
+          This portfolio module will receive its final content in the next
+          implementation stages.
         </p>
 
         <p className="mt-4 font-semibold text-[#248d41]">
@@ -55,32 +62,78 @@ function DesktopScreen() {
   const openWindow = useWindowStore((state) => state.openWindow);
   const windows = useWindowStore((state) => state.windows);
 
+  const setCurrentFolderId = useFileSystemStore(
+    (state) => state.setCurrentFolderId
+  );
+
+  const myFilesApp = getDesktopApp("file-manager");
+  const personalizationApp = getDesktopApp("personalization");
+  const musicPlayerApp = getDesktopApp("music-player");
+
   const handleDesktopClick = () => {
     setSelectedAppId(null);
     closeStartMenu();
   };
 
   const handleOpenApp = (appId) => {
+    if (appId === "recycle-bin") {
+      setCurrentFolderId("recycle-bin");
+      openWindow("file-manager");
+      setSelectedAppId("recycle-bin");
+      return;
+    }
+
     openWindow(appId);
     setSelectedAppId(appId);
   };
 
-  const myFilesApp = getDesktopApp("file-manager");
+  const renderWindowContent = (app) => {
+    if (app.id === "terminal") {
+      return <TerminalWindow />;
+    }
+
+    if (app.id === "file-manager") {
+      return <FileExplorerWindow />;
+    }
+
+    if (app.id === "personalization") {
+      return <PersonalizationWindow />;
+    }
+
+    if (app.id === "music-player") {
+      return <MusicPlayerWindow />;
+    }
+
+    return <PlaceholderAppContent app={app} />;
+  };
+
+  const primaryDesktopApps = desktopApps.filter(
+    (app) => app.id !== "recycle-bin"
+  );
+
+  const recycleBinApp = desktopApps.find(
+    (app) => app.id === "recycle-bin"
+  );
+
+  const systemWindowApps = [
+    myFilesApp,
+    personalizationApp,
+    musicPlayerApp,
+  ].filter(Boolean);
 
   return (
     <CrtShell>
       <main
-        className="oxygen-os relative min-h-screen overflow-hidden pb-20"
+        className="oxygen-os relative min-h-screen overflow-visible pb-20"
         onClick={handleDesktopClick}
       >
-       
 
         <section
           aria-label="OxygenOS desktop applications"
-          className="relative z-20 flex w-28 flex-col items-center gap-3 px-4 pt-10 sm:px-6"
+          className="relative z-20 grid w-max grid-cols-2 gap-x-3 gap-y-4 px-4 pt-16 sm:grid-cols-1 sm:gap-x-5 sm:px-7"
           onClick={(event) => event.stopPropagation()}
         >
-          {desktopApps.map((app) => (
+          {primaryDesktopApps.map((app) => (
             <DesktopIcon
               app={app}
               isSelected={selectedAppId === app.id}
@@ -89,42 +142,43 @@ function DesktopScreen() {
               onDoubleClick={() => handleOpenApp(app.id)}
             />
           ))}
+
+          {recycleBinApp && (
+            <DesktopIcon
+              app={recycleBinApp}
+              isSelected={selectedAppId === recycleBinApp.id}
+              key={recycleBinApp.id}
+              onClick={() => setSelectedAppId(recycleBinApp.id)}
+              onDoubleClick={() => handleOpenApp(recycleBinApp.id)}
+            />
+          )}
         </section>
-        
 
         <aside className="pointer-events-none absolute bottom-24 right-[7%] z-10 hidden items-center gap-5 lg:flex">
-          
-
           <div className="max-w-56 rounded-2xl border border-white/58 bg-white/22 p-4 text-xs leading-5 text-white shadow-[inset_0_1px_rgba(255,255,255,0.72),0_0.7rem_1.2rem_rgba(0,71,112,0.18)] [text-shadow:0_1px_2px_rgba(0,67,103,0.84)] backdrop-blur-md">
             <p className="mb-1 font-bold">Welcome to OxygenOS</p>
+
             <p className="m-0">
-              Hello Visitor! Feel free to explore the functionalities of this platforms.
+              Explore a Creative And Interactive World of Me !
             </p>
           </div>
         </aside>
 
-        {desktopApps.map((app) => (
-          <DraggableWindow app={app} key={app.id}>
-            <PlaceholderAppContent app={app} />
+        {primaryDesktopApps.map((app) => (
+          <DraggableWindow app={app} key={`desktop-window-${app.id}`}>
+            {renderWindowContent(app)}
           </DraggableWindow>
         ))}
 
-        <DraggableWindow app={myFilesApp}>
-          <PlaceholderAppContent app={myFilesApp} />
-        </DraggableWindow>
-
-        <DraggableWindow app={getDesktopApp("personalization")}>
-          <PersonalizationWindow />
-        </DraggableWindow>
-        <DraggableWindow app={getDesktopApp("music-player")}>
-          <MusicPlayerWindow />
-        </DraggableWindow>
+        {systemWindowApps.map((app) => (
+          <DraggableWindow app={app} key={`system-window-${app.id}`}>
+            {renderWindowContent(app)}
+          </DraggableWindow>
+        ))}
 
         <Taskbar />
 
-        {Object.values(windows).some(
-          (windowState) => windowState.isOpen
-        ) && (
+        {Object.values(windows).some((windowState) => windowState.isOpen) && (
           <div className="pointer-events-none fixed bottom-20 left-1/2 z-30 hidden -translate-x-1/2 rounded-full bg-white/20 px-3 py-1 text-[0.58rem] font-bold tracking-[0.1em] text-white [text-shadow:0_1px_2px_rgba(0,62,97,0.8)] xl:block">
             OXYGENOS WINDOW MANAGER ACTIVE
           </div>

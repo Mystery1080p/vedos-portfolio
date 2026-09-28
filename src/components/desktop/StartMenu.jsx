@@ -1,12 +1,15 @@
 import {
+  FolderOpen,
   MonitorCog,
   Music2,
   Palette,
   Power,
+  Recycle,
 } from "lucide-react";
 import { getDesktopApp } from "../../data/desktopApps";
 import { useSystemStore } from "../../store/useSystemStore";
 import { useWindowStore } from "../../store/useWindowStore";
+import { useFileSystemStore } from "../../store/useFileSystemStore";
 
 function StartMenu() {
   const isStartMenuOpen = useSystemStore((state) => state.isStartMenuOpen);
@@ -17,23 +20,24 @@ function StartMenu() {
     return null;
   }
 
-  const menuItems = [
-    {
-      id: "personalization",
-      label: "Personalization",
-      icon: Palette,
-    },
-    {
-      id: "music-player",
-      label: "Oxygen Music",
-      icon: Music2,
-    },
-  ];
+ const menuItems = [
+  { id: "file-manager", label: "My Files", icon: FolderOpen },
+  { id: "recycle-bin", label: "Recycle Bin", icon: Recycle },
+  { id: "personalization", label: "Personalization", icon: Palette },
+  { id: "music-player", label: "Oxygen Music", icon: Music2 },
+];
 
   const openApp = (appId) => {
-    openWindow(appId);
+  if (appId === "recycle-bin") {
+    useFileSystemStore.getState().setCurrentFolderId("recycle-bin");
+    openWindow("file-manager");
     closeStartMenu();
-  };
+    return;
+  }
+
+  openWindow(appId);
+  closeStartMenu();
+};
 
   return (
     <aside

@@ -18,8 +18,9 @@ function Taskbar() {
       <StartMenu />
 
       <footer
-        className="oxygen-taskbar fixed bottom-2 left-1/2 z-[190] flex h-14 w-fit max-w-[calc(100vw-1rem)] -translate-x-1/2 items-center gap-2 rounded-[1.35rem] border border-white/85 bg-[linear-gradient(180deg,rgba(240,254,255,0.82),rgba(38,163,211,0.68))] px-2 shadow-[inset_0_1px_rgba(255,255,255,0.96),0_0.7rem_1.6rem_rgba(0,70,110,0.42)] backdrop-blur-xl transition-[width] duration-300 ease-out"
+        className="oxygen-taskbar fixed bottom-2 left-1/2 z-[190] flex h-14 w-[min(96vw,760px)] -translate-x-1/2 items-center gap-2 overflow-visible rounded-[1.35rem] border border-white/85 bg-[linear-gradient(180deg,rgba(240,254,255,0.82),rgba(38,163,211,0.68))] px-2 shadow-[inset_0_1px_rgba(255,255,255,0.96),0_0.7rem_1.6rem_rgba(0,70,110,0.42)] backdrop-blur-xl"
         onClick={(event) => event.stopPropagation()}
+        onPointerDown={(event) => event.stopPropagation()}
       >
         <button
           aria-label="Open OxygenOS Start menu"
@@ -32,7 +33,7 @@ function Taskbar() {
           <span className="relative z-10 hidden sm:inline">Oxygen</span>
         </button>
 
-        <div className="min-w-0 w-[clamp(180px,34vw,360px)] shrink">
+        <div className="relative min-w-0 w-[clamp(180px,34vw,360px)] shrink overflow-visible">
           <TaskbarSearch />
         </div>
 

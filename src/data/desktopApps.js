@@ -5,6 +5,7 @@ import {
   Music2,
   Radio,
   Palette,
+  Recycle,
   TerminalSquare,
   UserRound,
 } from "lucide-react";
@@ -50,6 +51,16 @@ export const desktopApps = [
     defaultSize: { width: 620, height: 480 },
     accent: "pink",
   },
+  {
+  id: "recycle-bin",
+  title: "Recycle Bin",
+  shortTitle: "Bin",
+  icon: Recycle,
+  description: "Deleted local files and folders",
+  defaultPosition: { x: 28, y: 450 },
+  defaultSize: { width: 720, height: 480 },
+  accent: "aqua",
+},
 ];
 
 export const taskbarPinnedAppIds = ["about", "projects", "contact"];
@@ -93,3 +104,4 @@ export const allDesktopApps = [...desktopApps, ...systemApps];
 export function getDesktopApp(appId) {
   return allDesktopApps.find((app) => app.id === appId);
 }
+
