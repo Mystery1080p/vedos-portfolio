@@ -11,6 +11,8 @@ import { desktopApps, getDesktopApp } from "../data/desktopApps";
 import { useFileSystemStore } from "../store/useFileSystemStore";
 import { useSystemStore } from "../store/useSystemStore";
 import { useWindowStore } from "../store/useWindowStore";
+import CreateDesktopItemDialog from "../components/desktop/CreateDesktopItemDialog";
+import DesktopContextMenu from "../components/desktop/DesktopContextMenu";
 
 function PlaceholderAppContent({ app }) {
   const Icon = app.icon;
@@ -57,6 +59,8 @@ function PlaceholderAppContent({ app }) {
 
 function DesktopScreen() {
   const [selectedAppId, setSelectedAppId] = useState(null);
+  const [contextMenuPosition, setContextMenuPosition] = useState(null);
+const [createDialogType, setCreateDialogType] = useState(null);
 
   const closeStartMenu = useSystemStore((state) => state.closeStartMenu);
   const openWindow = useWindowStore((state) => state.openWindow);
@@ -66,14 +70,22 @@ function DesktopScreen() {
     (state) => state.setCurrentFolderId
   );
 
+  const createFolder = useFileSystemStore((state) => state.createFolder);
+const createTextFile = useFileSystemStore((state) => state.createTextFile);
+const lastFileSystemError = useFileSystemStore((state) => state.lastError);
+const clearLastError = useFileSystemStore(
+  (state) => state.clearLastError
+);
+
   const myFilesApp = getDesktopApp("file-manager");
   const personalizationApp = getDesktopApp("personalization");
   const musicPlayerApp = getDesktopApp("music-player");
 
   const handleDesktopClick = () => {
-    setSelectedAppId(null);
-    closeStartMenu();
-  };
+  setSelectedAppId(null);
+  closeStartMenu();
+  closeDesktopContextMenu();
+};
 
   const handleOpenApp = (appId) => {
     if (appId === "recycle-bin") {
@@ -121,18 +133,87 @@ function DesktopScreen() {
     musicPlayerApp,
   ].filter(Boolean);
 
+  const closeDesktopContextMenu = () => {
+  setContextMenuPosition(null);
+};
+
+const handleDesktopContextMenu = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const menuWidth = 240;
+  const menuHeight = 360;
+  const viewportPadding = 12;
+
+  const x = Math.min(
+    event.clientX,
+    window.innerWidth - menuWidth - viewportPadding
+  );
+
+  const y = Math.min(
+    event.clientY,
+    window.innerHeight - menuHeight - viewportPadding
+  );
+
+  setSelectedAppId(null);
+  closeStartMenu();
+
+  setContextMenuPosition({
+    x: Math.max(viewportPadding, x),
+    y: Math.max(viewportPadding, y),
+  });
+};
+
+const openCreateDialog = (type) => {
+  closeDesktopContextMenu();
+  clearLastError();
+  setCreateDialogType(type);
+};
+
+const closeCreateDialog = () => {
+  clearLastError();
+  setCreateDialogType(null);
+};
+
+const createDesktopItem = (name) => {
+  const wasCreated =
+    createDialogType === "folder"
+      ? createFolder("my-files", name)
+      : createTextFile("my-files", name);
+
+  if (wasCreated) {
+    setCurrentFolderId("my-files");
+    openWindow("file-manager");
+    closeCreateDialog();
+  }
+
+  return wasCreated;
+};
+
+const openTerminalFromContextMenu = () => {
+  closeDesktopContextMenu();
+  openWindow("terminal");
+};
+
+const openPersonalizationFromContextMenu = () => {
+  closeDesktopContextMenu();
+  openWindow("personalization");
+};
+
   return (
     <CrtShell>
       <main
-        className="oxygen-os relative min-h-screen overflow-visible pb-20"
-        onClick={handleDesktopClick}
-      >
+  className="oxygen-os relative min-h-screen overflow-visible pb-20"
+  onClick={handleDesktopClick}
+  onContextMenu={handleDesktopContextMenu}
+>
 
         <section
-          aria-label="OxygenOS desktop applications"
-          className="relative z-20 grid w-max grid-cols-2 gap-x-3 gap-y-4 px-4 pt-16 sm:grid-cols-1 sm:gap-x-5 sm:px-7"
-          onClick={(event) => event.stopPropagation()}
-        >
+  aria-label="OxygenOS desktop applications"
+  className="relative z-20 grid w-max grid-cols-2 gap-x-3 gap-y-4 px-4 pt-16 sm:grid-cols-3 sm:gap-x-5 sm:px-7"
+  onClick={(event) => event.stopPropagation()}
+  onContextMenu={(event) => event.stopPropagation()}
+>
           {primaryDesktopApps.map((app) => (
             <DesktopIcon
               app={app}
@@ -175,6 +256,24 @@ function DesktopScreen() {
             {renderWindowContent(app)}
           </DraggableWindow>
         ))}
+
+        <DesktopContextMenu
+  onClose={closeDesktopContextMenu}
+  onCreateFolder={() => openCreateDialog("folder")}
+  onCreateTextFile={() => openCreateDialog("file")}
+  onOpenPersonalization={openPersonalizationFromContextMenu}
+  onOpenTerminal={openTerminalFromContextMenu}
+  position={contextMenuPosition}
+/>
+
+{createDialogType && (
+  <CreateDesktopItemDialog
+    errorMessage={lastFileSystemError}
+    onCancel={closeCreateDialog}
+    onCreate={createDesktopItem}
+    type={createDialogType}
+  />
+)}
 
         <Taskbar />
 
